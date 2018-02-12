@@ -1,37 +1,47 @@
 #distribucion de linux para la infraestructura del microservicios.
-FROM alpine:latest
- RUN apk update
- RUN apk upgrade
- RUN apk add bash
+FROM caferrerb/javamicroservicios
 
-#----------------------------------------------------------------------------------------------
-
-#---------------------------------------------------------------------------------------------------------
-#                               INSTALACION JAVA                                                    -
-#--------------------------------------------------------------------------------------------------------- 
+ARG NOMBRE_SERVICIO
+ARG ARTIFACT_LOCATION
 
 
+ENV HOME /home
+ENV RUTABASERECETARIO "infraestrutura/recetas"
+ENV RUTAREPOGIT https://github.com/caferrerb/domotica.git
+ENV BRANCHGIT master
+ENV PORT 8080
 
-# Default to UTF-8 file.encoding
-ENV LANG C.UTF-8
+ENV RUTABASE $HOME/$NOMBRE_SERVICIO
+ENV RUTALOGS $RUTABASE/logs
+ENV RUTABIN $RUTABASE/bin
+ENV RUTACOMPLETAGIT $RUTABASERECETARIO/$NOMBRE_SERVICIO
 
-# add a simple script that can auto-detect the appropriate JAVA_HOME value
-# based on whether the JDK or only the JRE is installed
-RUN { \
-		echo '#!/bin/sh'; \
-		echo 'set -e'; \
-		echo; \
-		echo 'dirname "$(dirname "$(readlink -f "$(which javac || which java)")")"'; \
-	} > /usr/local/bin/docker-java-home \
-	&& chmod +x /usr/local/bin/docker-java-home
-ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
-ENV PATH $PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
 
-ENV JAVA_VERSION 8u151
-ENV JAVA_ALPINE_VERSION 8.151.12-r0
+#crear estructura de carpetas para el microservicio
+WORKDIR $HOME
 
-RUN set -x \
-	&& apk add --no-cache \
-		openjdk8="$JAVA_ALPINE_VERSION" \
-	&& [ "$JAVA_HOME" = "$(docker-java-home)" ]
+#----descargar estructura de archivos desde el recetario en git--------------
+RUN git init \
+    && git config core.sparseCheckout true \
+    && git remote add -f origin $RUTAREPOGIT \
+    && echo $RUTABASERECETARIO"/"$NOMBRE_SERVICIO"/*" > .git/info/sparse-checkout \
+    && git checkout $BRANCHGIT 
+
+#organizar las carpetas....
+RUN mv   $RUTACOMPLETAGIT $HOME \
+    && rm -rf $RUTACOMPLETAGIT
+
+
+#-------------------volumenes----------------------------------------------
+VOLUME [ "$RUTALOGS" ]
+
+#--------descargar de ejecutable--------------------------------------------
+WORKDIR $RUTABIN
+RUN wget -O $NOMBRE_SERVICIO.jar $ARTIFACT_LOCATION
+
+EXPOSE $PORT
+#-------executable--------------------------------------
+
+ENTRYPOINT  [ $RUTABIN/runservice.sh ]
+
 
