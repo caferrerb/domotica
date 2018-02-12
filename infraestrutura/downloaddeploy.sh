@@ -40,5 +40,5 @@ rm $HOME/infraestrutura
 
 cd $RUTABASE
 
-sh configdeploy.sh $NOMBRE_SERVICIO $ARTIFACT_LOCATION $HOME
+#sh configdeploy.sh $NOMBRE_SERVICIO $ARTIFACT_LOCATION $HOME
 
