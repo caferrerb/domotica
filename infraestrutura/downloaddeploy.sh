@@ -32,7 +32,7 @@ echo "RUTACOMPLETAGIT=" $RUTACOMPLETAGIT
 
 
 rm -rf $RUTABASE
-mkdir $RUTABASE
+
 
 cd $HOME
 
@@ -42,12 +42,12 @@ git remote add -f origin $RUTAREPOGIT
 echo $RUTABASERECETARIO"/"$NOMBRE_SERVICIO"/*" > .git/info/sparse-checkout
 git checkout $BRANCHGIT 
 
-cp  -r $RUTACOMPLETAGIT/$NOMBRE_SERVICIO $RUTABASE
+cp  -r $RUTACOMPLETAGIT/$NOMBRE_SERVICIO $HOME
 rm -rf $RUTACOMPLETAGIT
 rm -rf $HOME/.git
-rm $HOME/infraestrutura
+rm -rf $HOME/infraestrutura
 
 cd $RUTABASE
-
-#sh configdeploy.sh $NOMBRE_SERVICIO $ARTIFACT_LOCATION $HOME
+ls -l
+sh configdeploy.sh $NOMBRE_SERVICIO $ARTIFACT_LOCATION $HOME
 

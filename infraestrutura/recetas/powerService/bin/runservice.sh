@@ -1,2 +1,2 @@
 #!/bin/sh
-java -jar powerservice.jar
+java -jar powerService.jar
