@@ -42,6 +42,6 @@ RUN wget -O $NOMBRE_SERVICIO.jar $ARTIFACT_LOCATION
 EXPOSE $PORT
 #-------executable--------------------------------------
 
-ENTRYPOINT  [ $RUTABIN/runservice.sh ]
+#ENTRYPOINT $RUTABIN/runservice.sh
 
 
