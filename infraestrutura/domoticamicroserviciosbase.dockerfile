@@ -21,4 +21,5 @@ VOLUME [ "$RUTALOGS" ]
 
 COPY downloaddeploy.sh /
 RUN ["chmod", "+x", "/downloaddeploy.sh"]
+
 ENTRYPOINT /downloaddeploy.sh $NOMBRE_SERVICIO $ARTIFACT_LOCATION $RUTAREPOGIT $BRANCHGIT $RUTABASERECETARIO $HOME

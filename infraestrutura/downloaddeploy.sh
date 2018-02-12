@@ -1,6 +1,13 @@
 #!/bin/sh
 
 #$NOMBRE_SERVICIO $ARTIFACT_LOCATION $RUTAREPOGIT $BRANCHGIT $RUTABASERECETARIO $HOME
+echo "parametros:"
+echo $1
+echo $2
+echo $3
+echo $4
+echo $5
+echo $6
 
 NOMBRE_SERVICIO=$1
 ARTIFACT_LOCATION=$2
