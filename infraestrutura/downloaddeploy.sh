@@ -4,7 +4,7 @@
 NOMBRE_SERVICIO=$1
 ARTIFACT_LOCATION=$2
 
-RUTAREPOGIT=$3#https://github.com/caferrerb/domotica.git
+RUTAREPOGIT=$3 #https://github.com/caferrerb/domotica.git
 BRANCHGIT=$4 #master
 RUTABASERECETARIO=$4 #infraestrutura/recetas
 HOME=$5 #/Users/caferrerb/Desktop/folder
