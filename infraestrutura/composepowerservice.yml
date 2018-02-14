@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  powerservice:
+    image: caferrerb/domoticamicroserviciobase
+    ports:
+      - 8081:8080
+    environment:
+      - NOMBRE_SERVICIO=powerService
+      - ARTIFACT_LOCATION=https://oss.sonatype.org/content/repositories/snapshots/com/github/caferrerb/domotica/powerService/1.0-SNAPSHOT/powerService-1.0-20180211.211442-2.jar
+
+
+  bdpowerservice:
+    image: postgres:9-alpine
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=powerservicebd
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+    db-data:
+
+     
+
