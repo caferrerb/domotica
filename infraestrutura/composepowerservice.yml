@@ -7,8 +7,7 @@ services:
       - 8081:8080
     environment:
       - NOMBRE_SERVICIO=powerService
-      - ARTIFACT_LOCATION=https://oss.sonatype.org/content/repositories/snapshots/com/github/caferrerb/domotica/powerService/1.0-SNAPSHOT/powerService-1.0-20180211.211442-2.jar
-
+      - ARTIFACT_LOCATION=https://oss.sonatype.org/content/repositories/snapshots/com/github/caferrerb/domotica/powerService/1.0-SNAPSHOT/powerService-1.0-20180214.040247-3.jar
 
   bdpowerservice:
     image: postgres:9-alpine
